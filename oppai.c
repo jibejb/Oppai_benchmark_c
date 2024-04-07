@@ -47,6 +47,26 @@ void draw_aixes(SDL_Renderer* renderer, int windowWidth, int windowHeight)
     SDL_RenderDrawLine(renderer, 10, 0, 10, windowHeight);
 }
 
+
+void draw_txt(SDL_Renderer* renderer, char* txt, TTF_Font* font, int windowWidth, int windowHeight){
+
+    SDL_Color sc = {255, 255, 255, 255};
+    SDL_Surface *sur = TTF_RenderUTF8_Blended_Wrapped(font, txt, sc, 350);
+    SDL_Rect rect = { 0, 0, sur->w, sur->h };
+    rect.x = (windowWidth - rect.w) * 3 / 4;
+    rect.y = (windowHeight - rect.h) / 4;
+
+    SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, sur);
+    SDL_FreeSurface(sur);
+    SDL_RenderPresent(renderer);
+
+    SDL_RenderCopy(renderer, tex, NULL, &rect);
+	SDL_RenderPresent(renderer);
+    SDL_DestroyTexture(tex);
+
+}
+
+
 int update_screen(void* data) {
     struct Frame * frame = (struct Frame*) data;
     double dx = 10.0*PI / 64.0;
@@ -82,24 +102,6 @@ int update_screen(void* data) {
         free(txt);
     }
     return 0;
-}
-
-void draw_txt(SDL_Renderer* renderer, char* txt, TTF_Font* font, int windowWidth, int windowHeight){
-
-    SDL_Color sc = {255, 255, 255, 255};
-    SDL_Surface *sur = TTF_RenderUTF8_Blended_Wrapped(font, txt, sc, 350);
-    SDL_Rect rect = { 0, 0, sur->w, sur->h };
-    rect.x = (windowWidth - rect.w) * 3 / 4;
-    rect.y = (windowHeight - rect.h) / 4;
-
-    SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, sur);
-    SDL_FreeSurface(sur);
-    SDL_RenderPresent(renderer);
-
-    SDL_RenderCopy(renderer, tex, NULL, &rect);
-	SDL_RenderPresent(renderer);
-    SDL_DestroyTexture(tex);
-
 }
 
 int main(void)
