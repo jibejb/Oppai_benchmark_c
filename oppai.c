@@ -154,17 +154,7 @@ int main(void)
     frame.event = event;
     frame.state = 0;
 
-    while (!(frame.state)) {
-        while (SDL_PollEvent(&event)) {
-           if (event.type == SDL_QUIT) {
-                frame.state = 1;
-            }
-            else
-            {
-                update_screen(&frame);
-            }
-	    }
-    }
+    update_screen(&frame);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
