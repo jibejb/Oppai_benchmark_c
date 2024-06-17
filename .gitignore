@@ -1,7 +1,5 @@
-subprojects
-
-builddir
+build
 
 *.Identifier
 
-.vscode
+Oppai_benchmark_c.kdev4
