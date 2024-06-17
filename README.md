@@ -2,8 +2,6 @@
 
 Oppai_benchmark rewrite in C.
 
-https://github.com/PenguinCabinet/Oppai_benchmark
-
 ## Usage:
 
 Dependences: ISO C99 OpenGL(3.3 or later) glfw3(libglfw-dev) ncurses(libncurses-dev) libpthread
@@ -17,3 +15,12 @@ cmake ..
 make
 ./oppai_benchmark -h
 ```
+
+## Thanks:
+Oppai_benchmark: https://github.com/PenguinCabinet/Oppai_benchmark
+thpool: https://github.com/Pithikos/C-Thread-Pool
+Linux C编程一站式学习: https://akaedu.github.io/book/
+ChatGPT: https://chatgpt.com/
+LearnOpenGL CN : https://learnopengl-cn.github.io/
+......
+

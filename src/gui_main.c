@@ -18,7 +18,7 @@ const char* vertexShaderSource = "#version 330 core\n"
 const char* fragmentShaderSource = "#version 330 core\n"
     "out vec4 FragColor;\n"
     "void main() {\n"
-    "   FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
+    "   FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
     "}\0";
 
 void gui_main() {
@@ -44,7 +44,7 @@ void gui_main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Function Plot", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Oppai_benchmark_c", NULL, NULL);
     if (!window) {
         fprintf(stderr, "Failed to create GLFW window\n");
         glfwTerminate();
@@ -100,13 +100,15 @@ void gui_main() {
         }
         pthread_mutex_lock(&sharedData->mutex);
         pthread_cond_wait(&sharedData->cond, &sharedData->mutex);
-
-        fprintf(stdout, "S: %lf, Score: %lf\n", sharedData->S, sharedData->Score);
-        generateVertices(vertices, numVertices, sharedData->t);
+        double temp_t = sharedData->t;
+        double temp_S = sharedData->S;
+        double temp_Score = sharedData->Score;
         pthread_mutex_unlock(&sharedData->mutex);
-
+        fprintf(stdout, "S: %lf, Score: %lf\n", temp_S, temp_Score);
+        generateVertices(vertices, numVertices, temp_t);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+        glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shaderProgram);

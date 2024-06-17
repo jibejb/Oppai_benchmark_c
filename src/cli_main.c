@@ -22,14 +22,29 @@ int map_y(double y, GraphRange graph, ScreenSize screen) {
 }
 
 void draw_function(GraphRange graph, ScreenSize screen, double t) {
-    for (double x = graph.xmin; x <= graph.xmax; x += (graph.xmax - graph.xmin) / screen.width) {
-        double y = Oppai_func(x, t); // 示例函数
-        if (y >= graph.ymin && y <= graph.ymax) {
-            int screen_x = map_x(x, graph, screen);
-            int screen_y = map_y(y, graph, screen);
-            mvaddch(screen_y, screen_x, '.'); // 绘制点
+
+    if (screen.width < 2 * screen.height) {
+        for (double x = graph.xmin; x <= graph.xmax; x += (graph.xmax - graph.xmin) / screen.height) {
+            double y = Oppai_func(x, t); // 示例函数
+            if (y >= graph.xmin && y <= graph.xmax) {
+                int screen_y = map_x(x, graph, screen);
+                int screen_x = map_y(y, graph, screen);
+                mvaddch(screen.height - screen_y, (screen.width -  screen_x), '.'); // 绘制点
+            }
         }
     }
+    else {
+        for (double x = graph.xmin; x <= graph.xmax; x += (graph.xmax - graph.xmin) / screen.width) {
+            double y = Oppai_func(x, t); // 示例函数
+            if (y >= graph.ymin && y <= graph.ymax) {
+                int screen_x = map_x(x, graph, screen);
+                int screen_y = map_y(y, graph, screen);
+                mvaddch(screen_y, screen_x, '.'); // 绘制点
+            }
+        }
+    }
+
+
 }
 
 void zoom(GraphRange *graph, double factor) {
