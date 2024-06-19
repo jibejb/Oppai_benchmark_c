@@ -2,12 +2,14 @@
 
 Oppai_benchmark rewrite in C.
 
-## Usage:
-
-Dependences: ISO C99 OpenGL(3.3 or later) glfw3(libglfw-dev) ncurses(libncurses-dev) libpthread
-
 ## Bugs:
 NVIDIA driver's(not nouveau) OpenGL has bugs.
+
+## Usage:
+
+Dependences: ISO C99 OpenGL(3.3 or later) glfw3(libglfw-dev) ncurses(libncurses-dev)/pdcurses(on Windows) libpthread
+
+May it works on Windows if you modify the CMakeLists.txt.
 
 ```bash
 git clone https://github.com/jibejb/Oppai_benchmark_c.git
