@@ -5,7 +5,8 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_C_EXTENSIONS OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+        set(CMAKE_BUILD_TYPE Debug)
+        set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 endif()
 
 file(GLOB_RECURSE C_LIST src/*.c)
@@ -14,15 +15,17 @@ include_directories( SYSTEM "glad/include" )
 target_include_directories(oppai_benchmark PRIVATE src/)
 
 if(WIN32 OR MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS)
         add_subdirectory(pdcurses)
         target_link_libraries(oppai_benchmark
                 PRIVATE
                 PDcurses
         )
 else()
-    find_package(Curses REQUIRED)
-    include_directories(${CURSES_INCLUDE_DIR})
-    target_link_libraries(oppai_benchmark ${CURSES_LIBRARIES})
+        add_definitions(-Wall -Wextra)
+        find_package(Curses REQUIRED)
+        include_directories(${CURSES_INCLUDE_DIR})
+        target_link_libraries(oppai_benchmark ${CURSES_LIBRARIES})
 endif()
 
 find_package(OpenGL REQUIRED)

@@ -4,6 +4,7 @@ Oppai_benchmark rewrite in C.
 
 ## Bugs:
 NVIDIA driver's(not nouveau) OpenGL has bugs.
+Viewport size may be wrong on some systems.
 
 ## Usage:
 
@@ -17,7 +18,7 @@ git clone https://github.com/jibejb/Oppai_benchmark_c.git
 cd Oppai_benchmark_c
 mkdir build
 cd build
-cmake ..
+cmake .. -DCMAKE_BUILD_TYPE=Release
 make
 ./oppai_benchmark -h
 ```

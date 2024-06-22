@@ -1,5 +1,4 @@
 
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -80,6 +79,7 @@ void gui_main() {
         exit(EXIT_FAILURE);
     }
 
+    
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
@@ -105,13 +105,15 @@ void gui_main() {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    const int numVertices = 250;
+    float vertices[numVertices];
+    generateVertices(vertices, numVertices);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 //    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-    const int numVertices = 250;
-    float vertices[numVertices];
-    generateVertices(vertices, numVertices);
+
     char title[64];
 
     double time0 = glfwGetTime();
@@ -147,7 +149,6 @@ void gui_main() {
         sprintf(title, "Area: %.2lf, Score: %.2lf, FPS: %2lf\n", temp_S, temp_Score, fps);
         glfwSetWindowTitle(window, title);
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
