@@ -5,6 +5,8 @@
 #include "benchmark.h"
 #include "gui_main.h"
 
+#define  NUMVERTICES 250
+
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
 
@@ -42,6 +44,10 @@ const char* fragmentShaderSource = "#version 330 core\n"
 
 void gui_main() {
     Data *sharedData = malloc(sizeof(*sharedData));
+    if (NULL == sharedData) {
+        perror("memory alloc failed");
+        exit(EXIT_FAILURE);
+    }
     memset(sharedData, 0, sizeof(*sharedData));
     sharedData->t = 0.0;
     sharedData->S = 0.0;
@@ -79,6 +85,8 @@ void gui_main() {
         exit(EXIT_FAILURE);
     }
 
+
+    glViewport(0, 0, WIDTH, HEIGHT);
     
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -105,9 +113,9 @@ void gui_main() {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    const int numVertices = 250;
-    float vertices[numVertices];
-    generateVertices(vertices, numVertices);
+ //   const int numVertices = 250;
+    float vertices[NUMVERTICES];
+    generateVertices(vertices, NUMVERTICES);
    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -159,10 +167,10 @@ void gui_main() {
         glUniform1f(uTimeLocation, temp_t);
 
         int numVerticesLocation = glGetUniformLocation(shaderProgram, "numVertices");
-        glUniform1f(numVerticesLocation, (float)numVertices);
+        glUniform1f(numVerticesLocation, (float)NUMVERTICES);
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_LINE_STRIP, 0, numVertices);
+        glDrawArrays(GL_LINE_STRIP, 0, NUMVERTICES);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

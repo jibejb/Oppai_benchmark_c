@@ -25,21 +25,21 @@ void draw_function(GraphRange graph, ScreenSize screen, double t) {
 
     if (screen.width < 2 * screen.height) {
         for (double x = graph.xmin; x <= graph.xmax; x += (graph.xmax - graph.xmin) / screen.height) {
-            double y = Oppai_func(x, t); // 示例函数
+            double y = Oppai_func(x, t);
             if (y >= graph.xmin && y <= graph.xmax) {
                 int screen_y = map_x(x, graph, screen);
                 int screen_x = map_y(y, graph, screen);
-                mvaddch(screen.height - screen_y, (screen.width -  screen_x), '.'); // 绘制点
+                mvaddch(screen.height - screen_y, (screen.width -  screen_x), '.');
             }
         }
     }
     else {
         for (double x = graph.xmin; x <= graph.xmax; x += (graph.xmax - graph.xmin) / screen.width) {
-            double y = Oppai_func(x, t); // 示例函数
+            double y = Oppai_func(x, t);
             if (y >= graph.ymin && y <= graph.ymax) {
                 int screen_x = map_x(x, graph, screen);
                 int screen_y = map_y(y, graph, screen);
-                mvaddch(screen_y, screen_x, '.'); // 绘制点
+                mvaddch(screen_y, screen_x, '.');
             }
         }
     }
@@ -80,7 +80,6 @@ void cli_main() {
         exit(EXIT_FAILURE);
     }
 
-    // 初始化屏幕
     init_ncurses();
 
     while (sharedData->benchmark_running) {

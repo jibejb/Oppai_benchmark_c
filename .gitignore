@@ -3,3 +3,5 @@ build
 *.Identifier
 
 .cache
+.vs
+.vscode

@@ -28,7 +28,7 @@ typedef struct {
 
 double Oppai_func(double y, double t);
 
-double integral_f_p(double alpha, double beta, void (*task)(void *), threadpool *thpl, int thread_n, int t);
+double integral_f_p(double alpha, double beta, void (*task)(void *), threadpool *thpl, int thread_n, double t);
 double get_score(double interval);
 void *benchmark(void* data);
 #endif // BENCHMARK_H_INCLUDED

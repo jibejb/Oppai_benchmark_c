@@ -34,6 +34,7 @@ void oppai_task(void * data)
 	double temp_e = tsk->temp_e;
 	double delta = tsk->delta;
 	double t = tsk->time;
+//	printf("oppai_tsk: %lf\n %lf\n %lf\n %lf\n", temp_s, temp_e, delta, t);
 	double *dt = *tsk->data;
 	int thread_n = tsk->thread_n;
 	int N = tsk->N;
@@ -47,10 +48,10 @@ void oppai_task(void * data)
 	}
 }
 
-double integral_f_p(double alpha, double beta, void (*task)(void *), threadpool *thpl, int thread_n, int t) {
+double integral_f_p(double alpha, double beta, void (*task)(void *), threadpool *thpl, int thread_n, double t) {
 
 	int N = INTEGRAL_SIZE;
-	Task tsks[thread_n];
+	Task *tsks = malloc(sizeof(*tsks)*thread_n);
 	double delta = (beta - alpha) / N;
 	double seg = (beta - alpha) / thread_n;
 	double *point_data = malloc(sizeof(double) * (N + 1));
@@ -79,6 +80,7 @@ double integral_f_p(double alpha, double beta, void (*task)(void *), threadpool 
 	{
 		free(tsks[i]);
 	}
+		free(tsks);
 	return A;
 }
 
@@ -91,6 +93,7 @@ void *benchmark(void *data)
 {
 	Data *sharedData = (Data*)data;
 	long int thread_n = cpu_core();
+	printf("cpu threads %ld\n", thread_n);
 	double const N = 32.0;
 	const unsigned N_sec = 30;
 	const double delta_time = 0.5;
