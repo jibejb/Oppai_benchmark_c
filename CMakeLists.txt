@@ -11,7 +11,7 @@ endif()
 
 if(MSVC)
 
-		set(TH_POOL "winthpool")
+	set(TH_POOL "winthpool")
     set(CompilerFlags
         CMAKE_CXX_FLAGS
         CMAKE_CXX_FLAGS_DEBUG
@@ -31,13 +31,26 @@ endif()
 
 file(GLOB_RECURSE C_LIST src/*.c)
 
-
-find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
-
+if (NOT ANDROID)
+	message(STATUS "Building for a non-Android platform support gui")
+	find_package(OpenGL REQUIRED)
+	find_package(glfw3 REQUIRED)
     	add_executable(oppai_benchmark ${C_LIST} "glad/src/glad.c" ${TH_POOL}/thpool.c)
+	include_directories( SYSTEM "glad/include" ${TH_POOL})
+else()
+	set(ANDROID_C_FILES "")
+
+	foreach(FILE ${C_LIST})
+	    if(NOT FILE MATCHES "gui_main.c")
+		    list(APPEND ANDROID_C_FILES ${FILE})
+	    endif()
+	endforeach()
+
+	include_directories( SYSTEM ${TH_POOL})
+	add_executable(oppai_benchmark ${ANDROID_C_FILES} ${TH_POOL}/thpool.c)
+endif()
+
 		target_include_directories(oppai_benchmark PRIVATE src/)
-		include_directories( SYSTEM "glad/include" ${TH_POOL})
 
 
 if(MSVC)
@@ -60,7 +73,9 @@ else()
 		target_link_libraries(oppai_benchmark pthread)
 
 endif()
-include_directories(${OPENGL_INCLUDE_DIR})
-
-target_link_libraries(oppai_benchmark ${OPENGL_gl_LIBRARY} glfw)
+if (NOT ANDROID)
+	message(STATUS "Building for a non-Android platform support gui")
+	include_directories(${OPENGL_INCLUDE_DIR})
+	target_link_libraries(oppai_benchmark ${OPENGL_gl_LIBRARY} glfw)
+endif()
 
