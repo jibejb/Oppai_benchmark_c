@@ -15,6 +15,6 @@ int map_x(double x, GraphRange graph, ScreenSize screen);
 int map_y(double y, GraphRange graph, ScreenSize screen);
 void draw_function(GraphRange graph, ScreenSize screen, double t);
 void zoom(GraphRange *graph, double factor);
-void cli_main();
+void cli_main(int multi);
 
 #endif //CLI_MAIN_H_INCLUDED

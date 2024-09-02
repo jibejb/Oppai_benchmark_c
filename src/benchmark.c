@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <pthread.h>
 #include "benchmark.h"
-#include "cpu_core_count.h"
 #include "thpool.h"
 #include "linkedlist.h"
 
@@ -92,8 +91,8 @@ double get_score(double interval) {
 void *benchmark(void *data)
 {
 	Data *sharedData = (Data*)data;
-	long int thread_n = cpu_core();
-	printf("cpu threads %ld\n", thread_n);
+	long int thread_n = sharedData->threads;
+	printf("Threads: %ld\n", thread_n);
 	double const N = 32.0;
 	const unsigned N_sec = 30;
 	const double delta_time = 0.5;

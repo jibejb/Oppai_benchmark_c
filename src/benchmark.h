@@ -24,6 +24,7 @@ typedef struct {
     pthread_mutex_t mutex;
     pthread_cond_t cond;
     volatile int benchmark_running;
+    int threads;
 } Data;
 
 double Oppai_func(double y, double t);

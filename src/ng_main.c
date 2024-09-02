@@ -1,10 +1,11 @@
 #include "benchmark.h"
+#include "cpu_core_count.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void ng_main() {
+void ng_main(int multi) {
 
 
 
@@ -14,6 +15,11 @@ void ng_main() {
     sharedData->S = 0.0;
     sharedData->Score = 0.0;
     sharedData->benchmark_running = 1;
+    if (multi == 0) {
+        sharedData->threads = 1;
+    } else {
+        sharedData->threads = cpu_core();
+    }
     pthread_mutex_init(&sharedData->mutex, NULL);
     pthread_cond_init(&sharedData->cond, NULL);
     pthread_t benchmark_thread;

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "benchmark.h"
 #include "gui_main.h"
+#include "cpu_core_count.h"
 
 #define  NUMVERTICES 250
 
@@ -42,7 +43,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
     "   FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
     "}\0";
 
-void gui_main() {
+void gui_main(int multi) {
     Data *sharedData = malloc(sizeof(*sharedData));
     if (NULL == sharedData) {
         perror("memory alloc failed");
@@ -53,6 +54,11 @@ void gui_main() {
     sharedData->S = 0.0;
     sharedData->Score = 0.0;
     sharedData->benchmark_running = 1;
+    if (multi == 0) {
+	sharedData->threads = 1;
+    } else {
+	sharedData->threads = cpu_core();
+    }
     pthread_mutex_init(&sharedData->mutex, NULL);
     pthread_cond_init(&sharedData->cond, NULL);
 
