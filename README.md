@@ -3,15 +3,22 @@
 Oppai_benchmark rewrite in C.
 
 ## You can watch the video "simple.mp4" to see how it works.
+Diffrent complier has diffrent score.
+Change the optimizition level, the score also change.
 
 ## Bugs:
 on linux NVIDIA driver's(not nouveau) OpenGL has bugs.
-Viewport size may be wrong on some systems.
+F**k you NVIDIA!
 
 ## Usage:
 
 
-Dependences: ISO C99 OpenGL(3.3 or later) glfw3(libglfw-dev) ncurses(libncurses-dev)/pdcurses(on Windows) pthread
+Dependences: ISO C99 OpenGL(3.3 or later) glfw3(libglfw-dev/glfw) ncurses(libncurses-dev/ncurses)/pdcurses(on Windows) pthread
+
+### Android
+OpenGL and glfw are not needed on Android.
+Does not support GUI on Android.
+You can use termux, it is similar to the Linux terminal.
 
 ### Windows
 
