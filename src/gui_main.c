@@ -92,7 +92,9 @@ void gui_main(int multi) {
     }
 
 
-    glViewport(0, 0, WIDTH, HEIGHT);
+    float xscale, yscale;
+    glfwGetWindowContentScale(window, &xscale, &yscale);
+    glViewport(0, 0, WIDTH *xscale, HEIGHT *yscale);
     
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
