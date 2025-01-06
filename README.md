@@ -8,7 +8,8 @@ Change the optimizition level, the score also change.
 
 ## Bugs:
 on linux NVIDIA driver's(not nouveau) OpenGL has bugs.
-F**k you NVIDIA!
+You can user software rendering:
+"env __GLX_VENDOR_LIBRARY_NAME=mesa __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json MESA_LOADER_DRIVER_OVERRIDE=llvmpipe GALLIUM_DRIVER=llvmpipe ./oppai_benchmark -g"
 
 ## Usage:
 
