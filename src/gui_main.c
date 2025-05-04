@@ -68,6 +68,10 @@ void gui_main(int multi) {
         exit(EXIT_FAILURE);
     }
 
+
+    if (glfwPlatformSupported(GLFW_PLATFORM_X11))
+		    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW\n");
         exit(EXIT_FAILURE);
@@ -94,7 +98,8 @@ void gui_main(int multi) {
 
     float xscale, yscale;
     glfwGetWindowContentScale(window, &xscale, &yscale);
-    glViewport(0, 0, WIDTH *xscale, HEIGHT *yscale);
+   if(glfwGetPlatform() == GLFW_PLATFORM_WAYLAND)
+    	glViewport(0, 0, WIDTH *xscale, HEIGHT *yscale);
     
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
