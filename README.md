@@ -69,5 +69,7 @@ ChatGPT: https://chatgpt.com/
 
 LearnOpenGL CN : https://learnopengl-cn.github.io/
 
+豆包：https://www.doubao.com/
+
 ......
 

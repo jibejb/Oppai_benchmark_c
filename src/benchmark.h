@@ -9,7 +9,8 @@ typedef struct task_t *Task;
 struct task_t {
 	unsigned int id;
     double temp_s;
-    double temp_e;
+    int start_idx;
+    int end_idx;
     double time;
     double delta;
     double ** data;
